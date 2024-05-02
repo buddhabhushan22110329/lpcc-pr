@@ -1,0 +1,73 @@
+Q8
+%{
+#include<stdio.h>
+%}
+%%
+(Destiny) {printf("Noun:%s\n",yytext);}
+(Dread|Run|arrives) {printf("verb:%s\n",yytext);}
+(it) {printf("pronoun:%s\n",yytext);}
+(from) {printf("preposition:%s\n",yytext);}
+(same) {printf("adjective:%s\n",yytext);}
+(all|the) {printf("Determiner/article:%s\n",yytext);}
+[\t\n]+
+%%
+int yywrap(void){}
+int main(){
+yyin=fopen("input.txt","r");
+yylex();
+fclose(yyin);
+return 0;
+}
+----------------------------------------------------------------------
+
+Q9
+%{
+#include<stdio.h>
+%}
+%%
+"{"                   {printf("opening curly brace:%s\n",yytext);}
+"}"                   {printf("closing curly brace:%s\n",yytext);}
+"="                   {printf("assignment operator:%s\n",yytext);}
+";"                   {printf("semicolon\n",yytext);}
+[0-9]+                {printf("number:%s\n",yytext);}
+","                   {printf("comma:%s\n",yytext);}
+(int|char|string)     {printf("keywords/datatypes:%s\n",yytext);}
+[a-zA-Z_][a-zA-Z0-9_]* {printf("Identifier: %s\n", yytext); }
+[-+*/]                {printf("arithmetic operators:%s\n",yytext);}
+[\t\n]+               { /* Ignore whitespace */ }
+%%
+int yywrap(void){
+}
+int main(){
+yyin=fopen("c_program.c","r");
+yylex();
+fclose(yyin);
+return 0;
+}
+
+----------------------------------------------------------------------------
+Q10
+%{
+#include<stdio.h>
+%}
+%%
+"{" {printf("opening curly brace:%s\n",yytext);}
+"}" {printf("closing curly brace:%s\n",yytext);}
+"(" {printf("oppening round bracket:%s\t",yytext);}
+")" {printf("closing round bracket:%s\t",yytext);}
+";" {printf("semicolon:%s\n",yytext);}
+(int|char|string|float) {printf("keyword:%s\t",yytext);}
+"=" {printf("assignment operator:%s\t",yytext);}
+[0-9]+ {printf("number:%s\t",yytext);}
+[a-zA-Z_][a-zA-Z0-9_]* {printf("identifier:%s\t",yytext);}
+[-+*/] {printf("Arithmetic operator:%s\t",yytext);}
+[\t\n]+
+%%
+int yywrap(void){
+}
+int main(){
+yyin=fopen("input.c","r");
+yylex();
+fclose(yyin);
+return 0;
+}
